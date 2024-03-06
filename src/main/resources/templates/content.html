@@ -1,0 +1,12 @@
+<div th:fragment="content">
+    <div class="container">
+        <div class="card m-4" style="width: 18rem;">
+            <img src="img/img.png" class="card-img-top" alt="Gestion Academica">
+            <div class="card-body">
+                <h5 class="card-title">Gestion Academica</h5>
+                <p class="card-text">Bienvenido a nuestra página web para la gestión académica.</p>
+                <a sec:authorize="isAnonymous()" href="/login" class="btn btn-primary">Gestionar</a>
+            </div>
+        </div>
+    </div>
+</div>
