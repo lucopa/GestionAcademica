@@ -14,9 +14,9 @@
 <body>
     <div class="container-fluid">
         <div th:fragment="navigation">
-            <nav sec:authorize="hasAuthority('admin')" class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Zapato veloz</a>
+                    <a class="navbar-brand" href="#">Gestion Académica</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -46,16 +46,7 @@
                                     <li><a id="menu_enseñanza" class="dropdown-item" href="/categorias/add">Alta</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Localidades
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a id="menu_modulo" class="dropdown-item" href="/localidades">Listado</a></li>
-                                    <li><a id="menu_enseñanza" class="dropdown-item" href="/localidades/add">Alta</a></li>
-                                </ul>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="/ayuda">Ayuda </a>
                             </li>
@@ -70,16 +61,17 @@
                     </div>
                 </div>
             </nav>
-    
+        </div>
 
         <div th:fragment="header">
+            <h2 class="text-center">Gestion Academica</h2>
 
             <div class="d-flex justify-content-center">
                 <div class="card bg-light text-center" style="width: 18rem;">
-                    <img class="card-img-top" src="/img/img.png" alt="Gestion Academica">
+                    <img class="card-img-top" src="/img/img.png" alt="Escudo Informática">
                     <div class="card-body">
-                        <h5 class="card-title">Gestion Academica</h5>
-                        <p class="card-text"> Gestión integral Academica </p>
+                        <h5 class="card-title">Gestion Academica<</h5>
+                        <a href="#" id="menu_informe" class="btn btn-primary">Gestionala!/a>
                     </div>
                 </div>
 
@@ -92,13 +84,6 @@
                 <div class="text-center">                    
                     <hr/>
                     
-                    <p>Entró en el sistema como: 
-                        <span th:text="${#authentication.name}"></span>
-                        (<span th:text="${#authentication.authorities[0]}"></span>)
-                        <p sec:authorize="hasAuthority('admin')">
-                            <b>Este párrafo sólo se ve si eres un admin</b>
-                        </p>
-                    </p>
                     <p>
                         <span class="text-center">Ⓒ 2024. IES Virgen del Carmen. CFGS Desarrollo Multiplataforma.</span>
                     </p>
