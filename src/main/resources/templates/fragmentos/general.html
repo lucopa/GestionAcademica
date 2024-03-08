@@ -14,9 +14,9 @@
 <body>
     <div class="container-fluid">
         <div th:fragment="navigation">
-            <nav class="navbar" style="background-color: #bdecb6;">
+            <nav sec:authorize="hasAuthority('gestor')" class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Gestion Académica</a>
+                    <a class="navbar-brand" href="#">Gestión Académica</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -42,19 +42,78 @@
                                     Asignaturas
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a id="menu_modulo" class="dropdown-item" href="/categorias">Listado</a></li>
-                                    <li><a id="menu_enseñanza" class="dropdown-item" href="/categorias/add">Alta</a></li>
+                                    <li><a id="menu_modulo" class="dropdown-item" href="/asignaturas">Listado</a></li>
+                                    <li><a id="menu_enseñanza" class="dropdown-item" href="/asignaturas/add">Alta</a></li>
                                 </ul>
                             </li>
-
+                        
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="/ayuda">Ayuda </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/acerca">Sobre esta Web </a>
+                                <a class="nav-link" href="/acerca">Informacion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/logout">Desconexión </a>
+                                <a class="nav-link" href="/logout">Log out </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </nav>
+            <nav sec:authorize="hasAuthority('profesor')" class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Gestión Académica</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Inicio </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/asignaturas">Asignaturas </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/ayuda">Ayuda </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/acerca">Informacion </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Log out </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </nav>
+            <nav sec:authorize="hasAuthority('alumno')" class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Gestión Académica</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Inicio </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/asignaturas">Asignaturas </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/ayuda">Ayuda </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/acerca">Información</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Log Out </a>
                             </li>
                         </ul>
                         
@@ -64,14 +123,15 @@
         </div>
 
         <div th:fragment="header">
-            <h2 class="text-center">Gestion Academica</h2>
+            <h2 class="text-center">Gestion Académica</h2>
 
             <div class="d-flex justify-content-center">
                 <div class="card bg-light text-center" style="width: 18rem;">
-                    <img class="card-img-top" src="/img/img.png" alt="Escudo Informática">
+                    <img class="card-img-top" src="/img/img.png" alt="Gestion Academica">
                     <div class="card-body">
-                        <h5 class="card-title">Gestion Academica</h5>
-                        <a href="#" id="menu_informe" class="btn btn-primary">Gestionala!/a>
+                        <h5 class="card-title">Gestión Académica</h5>
+                        <p class="card-text"> Pagina web para la gestión Académica </p>
+                        <a href="#" id="menu_informe" class="btn btn-primary">Generar informe</a>
                     </div>
                 </div>
 
@@ -84,6 +144,12 @@
                 <div class="text-center">                    
                     <hr/>
                     
+                    <p>
+
+                        <p sec:authorize="hasAuthority('gestor')">
+                            <b>Solo puedes ver esto si eres gestor</b>
+                        </p>
+                    </p>
                     <p>
                         <span class="text-center">Ⓒ 2024. IES Virgen del Carmen. CFGS Desarrollo Multiplataforma.</span>
                     </p>

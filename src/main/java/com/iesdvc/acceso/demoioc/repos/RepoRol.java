@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.iesdvc.acceso.demoioc.modelos.Rol;
 
-public interface RepoRol extends JpaRepository<Rol,Long> {
+public interface RepoRol extends JpaRepository<Rol,Long>{
     
 }

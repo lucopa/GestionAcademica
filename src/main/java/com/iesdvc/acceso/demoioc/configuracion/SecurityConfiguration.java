@@ -20,7 +20,6 @@ public class SecurityConfiguration {
         @Autowired
         private DataSource dataSource;
 
-
         @Autowired
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
                 auth.jdbcAuthentication()
@@ -34,34 +33,39 @@ public class SecurityConfiguration {
                                                 + "usuario_roles.roles_id = rol.id and username = ?");
         }
 
-
         @Bean
         public PasswordEncoder encoder() {
                 return new BCryptPasswordEncoder();
         }
-         
 
         @Bean
         public SecurityFilterChain filter(HttpSecurity http) throws Exception {
-                
-                
 
                 return http
-                        .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/webjars/**", "/img/**", "/js/**", "/register/**", "/ayuda/**", "/login")
-                                .permitAll() 
-                                .requestMatchers("/usuarios/**", "categorias/**", "localidades/**", "/ayuda/**", "/acerca/**")
-                                .hasAuthority("admin")
-                                .anyRequest().permitAll()
-                        ).formLogin((formLogin) -> formLogin
-                                .permitAll()
-                        ).rememberMe(
-                                Customizer.withDefaults()
-                        ).logout((logout) -> logout
-                                .invalidateHttpSession(true)
-                                .logoutSuccessUrl("/")
-                                .permitAll()                                
-                        ).build();
+                                .authorizeHttpRequests((requests) -> requests
+                                                .requestMatchers("/webjars/**", "/img/**", "/js/**", "/register/**",
+                                                                "/ayuda/**", "/acerca/**", "asignaturas/**", "/login",
+                                                                "/denegado")
+                                                .permitAll()
+                                                .requestMatchers("/usuarios/**", "/usuarios/*/**", "/usuarios/*/*/**",
+                                                                "asignaturas/**", "asignaturas/*/**",
+                                                                "asignaturas/*/*/**", "/ayuda/**", "/acerca/**")
+
+                                                .hasAuthority("gestor")
+
+                                ).exceptionHandling((exception) -> exception.accessDeniedPage("/denegado"))
+                                .formLogin((formLogin) -> formLogin
+
+                                                .permitAll())
+                                .rememberMe(
+                                                Customizer.withDefaults())
+                                .logout((logout) -> logout
+                                                .invalidateHttpSession(true)
+                                                .logoutSuccessUrl("/")
+                                                .permitAll())
+                                .csrf((protection) -> protection
+                                                .disable())
+                                .build();
 
         }
 
