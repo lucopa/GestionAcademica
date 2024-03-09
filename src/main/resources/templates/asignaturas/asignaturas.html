@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Gestión Académica: Administración de Asignaturas</title>
+    <th:block th:replace="~{fragmentos/general.html :: headerfiles}"></th:block>
+</head>
+
+<body>
+
+    <div th:replace="~{fragmentos/general.html :: navigation}"></div>
+    <div class="container">
+        <h3>Listado de Asignaturas</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Identificador</td>
+                    <td>Nombre</td>
+                    <td>Curso</td>
+                    <td>Ciclo</td>
+
+                    <nav sec:authorize="hasAuthority('gestor')" class="navbar navbar-light" style="background-color: #95d1fb;">
+                        <td>Acciones</td>
+                    </nav>
+                    <nav sec:authorize="hasAuthority('profesor')" class="navbar navbar-light" style="background-color: #95d1fb;">
+                        <td>Alumnos Matriculados</td>
+                    </nav>
+                    <nav sec:authorize="hasAuthority('alumno')" class="navbar navbar-light" style="background-color: #95d1fb;">
+                        <td>Profesores</td>
+                    </nav>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="asignatura: ${asignaturas}">
+                    <td th:text="${asignatura.id}"></td>
+                    <td th:text="${asignatura.nombre}"></td>
+
+                    <td th:text="${asignatura.curso}"></td>
+                    <td th:text="${asignatura.ciclo}"></td>
+
+                    <nav sec:authorize="hasAuthority('gestor')" class="navbar navbar-light" style="background-color: #95d1fb;">
+                        <td>
+                            <a class="btn btn-outline-info" th:href="|/asignaturas/edit/${asignatura.id}|">Editar</a>
+                            <a class="btn btn-outline-warning" th:href="|/asignaturas/delete/${asignatura.id}|">Borrar</a>
+                        </td>
+                    </nav>
+                    <nav sec:authorize="hasAuthority('profesor')" class="navbar navbar-light" style="background-color: #f9cd57;">
+                        <td>
+                            <div th:if="${not #lists.isEmpty(asignatura.usuarios)}">
+                                <div th:each="usuario : ${asignatura.usuarios}">
+                                    <span th:each="rol : ${usuario.roles}" th:if="${rol.id == 3}" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></span>
+                                </div>
+                            </div>
+                            <span th:if="${#lists.isEmpty(asignatura.usuarios)}">No hay ningun alumno matriculado</span>
+                        </td>
+                    </nav>
+                    <nav sec:authorize="hasAuthority('alumno')" class="navbar navbar-light" style="background-color: #5df38f;">
+                        <td>
+                            <div th:if="${not #lists.isEmpty(asignatura.usuarios)}">
+                                <div th:each="usuario : ${asignatura.usuarios}">
+                                    <span th:each="rol : ${usuario.roles}" th:if="${rol.id == 2}" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></span>
+                                </div>
+                            </div>
+                            <span th:if="${#lists.isEmpty(asignatura.usuarios)}">No hay un profesor asignado a esta asignatura todavia</span>
+                        </td>
+                    </nav>
+
+                </tr>
+            </tbody>
+        </table>
+        <div th:replace="~{fragmentos/general.html :: footer}"></div>
+    </div>
+</body>
+
+</html>

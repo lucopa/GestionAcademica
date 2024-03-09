@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Administración de Usuarios - Gestión Académica</title>
+    <th:block th:replace="~{fragmentos/general.html :: headerfiles}"></th:block>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Añadir Usuarios</h3>
+
+        
+        <div th:fragment="add_user_form">
+            <form th:action="@{/usuarios/add}" th:object="${usuario}" method="post">
+                
+                <div class="border">
+                    <div class="row g-3 m-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre:</label>
+                            <input type="text" th:field="*{nombre}" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Apellido:</label>
+                            <input type="text" th:field="*{apellido}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="border">
+                    <div class="row g-3 m-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Correo Electrónico:</label>
+                            <input type="email" th:field="*{email}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="border">
+                    <div class="row g-3 m-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre de Usuario:</label>
+                            <input type="text" th:field="*{username}" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Contraseña:</label>
+                            <input type="password" th:field="*{password}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="border">
+                    <div class="row g-3 m-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Roles:</label>
+                            <select th:field="*{roles}" multiple="multiple" class="form-select">
+                                <option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.nombre}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="border">
+                    <div class="row g-3 m-2">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline-info">Guardar</button>
+                            <a href="/usuarios" class="btn btn-outline-warning">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        
+        <div th:replace="~{fragmentos/general.html :: add_user_form}"></div>
+
+        
+        <div th:replace="~{fragmentos/general.html :: footer}"></div>
+    </div>
+</body>
+
+</html>
